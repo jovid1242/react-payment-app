@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -23,7 +23,13 @@ const schema = yup
   })
   .required();
 
-export default function CardForm({ showCard, handleCard }) {
+export default function CardForm({
+  showCard,
+  info,
+  handleCard,
+  toast,
+  showLoading,
+}) {
   const [disableBtn, setDisableBtn] = useState(true);
   const {
     register,
@@ -34,6 +40,7 @@ export default function CardForm({ showCard, handleCard }) {
   });
 
   const onSubmit = (data) => {
+    showLoading(true);
     http
       .post("/pay", {
         cardName: "Jovid Masharipov",
@@ -44,11 +51,30 @@ export default function CardForm({ showCard, handleCard }) {
         cardCvv: data.cardCvv,
       })
       .then((res) => {
-        alert(res.data);
+        toast.success(
+          `RequestId: ${res.data.data.RequestId} ,Amount: ${res.data.data.Amount}`
+        );
       })
       .catch((e) => {
-        console.log(e);
+        toast.error(`ошибка: ${e}`);
+      })
+      .finally(() => {
+        showLoading(false);
       });
+  };
+
+  const checkedCard = () => {
+    if (
+      info.cardNumber === "0000000000000000" ||
+      info.cardAmount === 0 ||
+      info.cardMonth === "00" ||
+      info.cardYear === "0000" ||
+      info.cardCvv === ""
+    ) {
+      setDisableBtn(true);
+    } else {
+      setDisableBtn(false);
+    }
   };
 
   const handleInput = (e) => {
@@ -57,6 +83,10 @@ export default function CardForm({ showCard, handleCard }) {
     }
     handleCard((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  useEffect(() => {
+    checkedCard();
+  }, [info]);
 
   return (
     <>
@@ -177,7 +207,7 @@ export default function CardForm({ showCard, handleCard }) {
             }
             disabled={disableBtn}
           >
-            Отправить
+            Оплатить
           </button>
         </form>
       </div>

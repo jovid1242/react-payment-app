@@ -15,11 +15,11 @@ const CardModel = new Schema({
     default: false,
   },
   cardMonth: {
-    type: String,
+    type: Number,
     default: false,
   },
   cardYear: {
-    type: String,
+    type: Number,
     default: false,
   },
   cardCvv: {

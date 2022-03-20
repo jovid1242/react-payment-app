@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../../styles/payment.scss";
 import Card from "../card/Card";
 import CardForm from "../card/CardForm";
+import CLoading from "../loader/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Payment() {
   const [activeTab, setActiveTab] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [cardNumberSlice, setCardNumberSlice] = useState([]);
 
   const [cardAction, setCardAction] = useState({
@@ -29,12 +33,18 @@ export default function Payment() {
     setActiveTab(arg);
   };
 
+  const showLoading = (arg) => {
+    setLoading(arg);
+  };
+
   useEffect(() => {
     setCardNumberSlice(sliceICardNumber(cardAction.cardNumber, 4));
   }, [cardAction.cardNumber]);
 
   return (
     <div className="payment">
+      <CLoading loading={loading} />
+      <ToastContainer />
       <div className="container">
         <div className="payment__wrapper">
           <Card
@@ -46,6 +56,8 @@ export default function Payment() {
             showCard={showCard}
             info={cardAction}
             handleCard={setCardAction}
+            toast={toast}
+            showLoading={showLoading}
           />
         </div>
       </div>
