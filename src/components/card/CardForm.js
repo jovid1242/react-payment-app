@@ -1,4 +1,6 @@
 import React from "react";
+
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -31,7 +33,23 @@ export default function CardForm({ showCard, handleCard }) {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    axios
+      .post("http://localhost:5000/api/pay", {
+        cardName: "Jovid Masharipov",
+        cardNumber: data.cardNumber,
+        cardAmount: data.cardAmount,
+        cardMonth: data.cardMonth,
+        cardYear: data.cardYear,
+        cardCvv: data.cardCvv,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const handleInput = (e) => {
     if (e.target.name === "cardCvv") {
