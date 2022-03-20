@@ -15,6 +15,6 @@ const paymentController = require("../controller/paymentController");
 //   body("cardCvv").isLength({ min: 3, max: 3 })
 // );
 
-router.get("/users", paymentController.getUser);
+router.get("/pay", paymentController.getPay);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 class paymentController {
-  async getUser(req, res, next) {
+  async getPay(req, res, next) {
     try {
       return res.json({ name: "jovid" });
     } catch (e) {
