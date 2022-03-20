@@ -45,7 +45,7 @@ export default function Card({ visible, info, cardNumber }) {
                 <div className="box">
                   <span>cvv</span>
                   <div className="cvv-box">{info.cardCvv}</div>
-                  <img src={chipImgae} alt="chipImgae" />
+                  <img src={visaImgae} alt="chipImgae" />
                 </div>
               </div>
             </div>
