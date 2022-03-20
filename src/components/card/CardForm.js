@@ -1,9 +1,8 @@
-import React from "react";
-
-import axios from "axios";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import http from "../../http";
 import "../../styles/card.scss";
 
 const schema = yup
@@ -25,6 +24,7 @@ const schema = yup
   .required();
 
 export default function CardForm({ showCard, handleCard }) {
+  const [disableBtn, setDisableBtn] = useState(true);
   const {
     register,
     formState: { errors },
@@ -34,8 +34,8 @@ export default function CardForm({ showCard, handleCard }) {
   });
 
   const onSubmit = (data) => {
-    axios
-      .post("http://localhost:5000/api/pay", {
+    http
+      .post("/pay", {
         cardName: "Jovid Masharipov",
         cardNumber: data.cardNumber,
         cardAmount: data.cardAmount,
@@ -44,7 +44,7 @@ export default function CardForm({ showCard, handleCard }) {
         cardCvv: data.cardCvv,
       })
       .then((res) => {
-        console.log(res);
+        alert(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -169,7 +169,16 @@ export default function CardForm({ showCard, handleCard }) {
             </div>
           </div>
 
-          <button className="card-form__button">Отправить</button>
+          <button
+            className={
+              disableBtn === true
+                ? "card-form__button disable_btn"
+                : "card-form__button"
+            }
+            disabled={disableBtn}
+          >
+            Отправить
+          </button>
         </form>
       </div>
     </>

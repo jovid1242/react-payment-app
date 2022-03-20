@@ -16,6 +16,4 @@ router.post(
   paymentController.createPay
 );
 
-router.get("/paym", paymentController.getPay);
-
 module.exports = router;

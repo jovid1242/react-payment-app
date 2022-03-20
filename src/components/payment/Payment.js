@@ -42,7 +42,11 @@ export default function Payment() {
             info={cardAction}
             cardNumber={cardNumberSlice}
           />
-          <CardForm showCard={showCard} handleCard={setCardAction} />
+          <CardForm
+            showCard={showCard}
+            info={cardAction}
+            handleCard={setCardAction}
+          />
         </div>
       </div>
     </div>
