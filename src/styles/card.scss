@@ -1,0 +1,215 @@
+.card-inner {
+  width: 430px;
+  height: 270px;
+
+  .card-item__side {
+    position: relative;
+    width: 430px;
+    height: 270px;
+    margin: 0 auto;
+    z-index: 2;
+
+    &__bg {
+      max-width: 100%;
+      display: block;
+      max-height: 100%;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px 0 rgba(81, 88, 206, 0.65);
+    }
+  }
+  .front_card {
+    position: absolute;
+    backface-visibility: hidden;
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.6s ease-out;
+
+    .card-top {
+      position: absolute;
+      width: 100%;
+      padding: 30px;
+      top: 0;
+      color: #fff;
+      z-index: 3;
+
+      .image {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+
+        img {
+          height: 50px;
+        }
+      }
+
+      .card-number-box {
+        font-size: 24px;
+        display: flex;
+        span {
+          margin-right: 15px;
+        }
+      }
+      .card-top-info {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .box {
+          margin: 5px 0;
+
+          p {
+            font-size: 16px;
+            color: #c1c8cf;
+          }
+
+          .card-holder-name {
+            font-size: 16px;
+            color: #fff;
+          }
+
+          span {
+            font-size: 16px;
+          }
+          .expiration span {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  .back_card {
+    position: absolute;
+    text-align: right;
+    backface-visibility: hidden;
+    transform: perspective(1000px) rotateY(180deg);
+    transition: transform 0.6s ease-out;
+
+    &__info {
+      position: absolute;
+      width: 100%;
+      padding: 30px 0;
+      top: 0;
+      color: #fff;
+      z-index: 3;
+      .__wrapper {
+        padding: 0 30px;
+      }
+
+      .stripe {
+        background: #000;
+        width: 100%;
+        margin: 10px 0;
+        height: 50px;
+      }
+      .box img {
+        margin-top: 30px;
+        height: 30px;
+      }
+      .cvv-box {
+        height: 50px;
+        padding: 10px;
+        margin-top: 5px;
+        color: #333;
+        background: #fff;
+        border-radius: 5px;
+        width: 100%;
+      }
+    }
+  }
+}
+.active {
+  .front_card {
+    transform: perspective(1000px) rotateY(-180deg);
+  }
+  .back_card {
+    backface-visibility: visible;
+    transform: perspective(1000px) rotateY(0deg);
+  }
+}
+
+.card-form {
+  max-width: 570px;
+  margin: auto;
+  width: 100%;
+
+  &__group {
+    display: flex;
+    align-items: center;
+    ._select {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 1px solid #ced6e0;
+    transition: all 0.5s ease-in-out;
+    font-size: 18px;
+    padding: 5px 15px;
+    background: none;
+    color: #1a3b5d;
+    font-family: "Source Sans Pro", sans-serif;
+    cursor: pointer;
+
+    &:hover {
+      background: #1a3b5d;
+      border: 1px solid #1a3b5d;
+      color: #fff;
+      box-shadow: 0 20px 50px 0 rgba(81, 88, 206, 0.65);
+    }
+  }
+
+  .card-input {
+    margin-bottom: 20px;
+
+    &__label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #1a3b5d;
+      width: 100%;
+      display: block;
+      user-select: none;
+    }
+    &__input {
+      width: 100%;
+      height: 50px;
+      border-radius: 5px;
+      box-shadow: none;
+      border: 1px solid #ced6e0;
+      transition: all 0.3s ease-in-out;
+      font-size: 18px;
+      padding: 5px 15px;
+      background: none;
+      color: #1a3b5d;
+      font-family: "Source Sans Pro", sans-serif;
+
+      &:hover,
+      &:focus {
+        border-color: #3d9cff;
+      }
+
+      &:focus {
+        box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
+      }
+      &.-select {
+        -webkit-appearance: none;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAeCAYAAABuUU38AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUxJREFUeNrM1sEJwkAQBdCsngXPHsQO9O5FS7AAMVYgdqAd2IGCDWgFnryLFQiCZ8EGnJUNimiyM/tnk4HNEAg/8y6ZmMRVqz9eUJvRaSbvutCZ347bXVJy/ZnvTmdJ862Me+hAbZCTs6GHpyUi1tTSvPnqTpoWZPUa7W7ncT3vK4h4zVejy8QzM3WhVUO8ykI6jOxoGA4ig3BLHcNFSCGqGAkig2yqgpEiMsjSfY9LxYQg7L6r0X6wS29YJiYQYecemY+wHrXD1+bklGhpAhBDeu/JfIVGxaAQ9sb8CI+CQSJ+QmJg0Ii/EE2MBiIXooHRQhRCkBhNhBcEhLkwf05ZCG8ICCOpk0MULmvDSY2M8UawIRExLIQIEgHDRoghihgRIgiigBEjgiFATBACAgFgghEwSAAGgoBCBBgYAg5hYKAIFYgHBo6w9RRgAFfy160QuV8NAAAAAElFTkSuQmCC");
+        background-size: 12px;
+        background-position: 90% center;
+        background-repeat: no-repeat;
+        padding-right: 30px;
+      }
+    }
+  }
+}
